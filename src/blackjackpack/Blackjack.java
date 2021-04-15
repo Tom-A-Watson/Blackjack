@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  This is the Blackjack class, which is the main method of this package.The game logic/ 
- rules and lots of other cool add-ons for the game are writen here :)
+ rules and lots of other cool add-ons for the game are written here :)
  */
 
 public class Blackjack
