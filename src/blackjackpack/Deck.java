@@ -107,7 +107,7 @@ public class Deck
     }
     
     //Moves both the players' and dealers' hands back into the deck post-round
-    public void moveHandsToDeck(Deck moveTo) {
+    public void moveToDeck(Deck moveTo) {
         int thisDeckSize = this.multipleCards.size();
         
         //puts cards into the 'moveTo' deck

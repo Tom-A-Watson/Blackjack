@@ -18,8 +18,8 @@ public class PlayerInput
     
     public Answer getAnswer() {
         final String nextLine = answerInput.nextLine();
-        if ( "1".equalsIgnoreCase(nextLine) || "hit".equalsIgnoreCase(nextLine) ) return Answer.HIT;
-        else if ( "2".equalsIgnoreCase(nextLine) || "stand".equalsIgnoreCase(nextLine) ) return Answer.STAND;
+        if ( "1".equalsIgnoreCase(nextLine) || "hit".equalsIgnoreCase(nextLine)) return Answer.HIT;
+        else if ( "2".equalsIgnoreCase(nextLine) || "stand".equalsIgnoreCase(nextLine)) return Answer.STAND;
         else {
             throw new IllegalArgumentException("That's not a valid answer!");
         }
