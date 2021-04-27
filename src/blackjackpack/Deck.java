@@ -25,20 +25,20 @@ public class Deck
         shuffle();
     }
     
-    //Method that shuffles the deck
+    /**
+     * Method that shuffles the deck
+     */
     private void shuffle() {
-        ArrayList<Card> tempDeck = new ArrayList<Card>();               //New ArrayList of a temporary deck of cards
-        Random random = new Random();                                   //New Random called 'random'
-        int randomCardIndex = 0;                                        //Random index of cards to be removed from deck
-        int noOfCards = this.deckCards.size();                      //Defines the number of cards in the original deck
-                                                                        //(which is fifty two, 13 * 4)
-        //Syntax for generating a random number: random.nextInt((max - min) +1) + min;
-        for (int i = 0; i < noOfCards; i++) {                           //Generates a random index
-            randomCardIndex = random.nextInt((this.deckCards.size() //Defines what the random index number is
-            -1 - 0) + 1) + 0;
-            tempDeck.add(this.deckCards.get(randomCardIndex));      //Adds gen'd no. of cards to the temporary deck
-            this.deckCards.remove(randomCardIndex);                 //Removes gen'd no. of cards from the temporary deck 
-                                                                        //back into the original deck
+        ArrayList<Card> tempDeck = new ArrayList<Card>();               
+        Random random = new Random();                                   
+        int randomCardIndex = 0;                                        
+        int noOfCards = this.deckCards.size();                      
+                                                                        
+        //Sequence for generating a random number
+        for (int i = 0; i < noOfCards; i++) {
+            randomCardIndex = random.nextInt((this.deckCards.size()-1 - 0) + 1) + 0;
+            tempDeck.add(this.deckCards.get(randomCardIndex));      
+            this.deckCards.remove(randomCardIndex);                 
         }
         this.deckCards = tempDeck;
     }
@@ -58,65 +58,15 @@ public class Deck
     }
     
     
-    public Card getCard(int i) {
-        return this.deckCards.get(i);
-    }
-    
-    
     public void addCard(Card addCard) {
         this.deckCards.add(addCard);
     }
     
-    //Dealer draws cards from the deck
-    public void draw(Deck comingFrom) {
-        this.deckCards.add(comingFrom.getCard(0));
-        comingFrom.burnCard(0);
-    }
-
+    /**
+     * Draws a card from the deck.
+     * @return the card drawn.
+     */
     public Card draw() {
         return deckCards.remove(0);
-    }
-    //Returns the size of the deck
-    public int size() {
-        return this.deckCards.size();
-    }
-    
-    //Returns the total value of the cards in both the players' and (eventually) dealers' hands
-    public int cardValue() {
-        int totalValue = 0;
-        int aceCard = 0;
-        
-        //Defines the numerical value of each card, with conditions for the Ace, since it can be 1 or 11
-        for (Card aCard : this.deckCards) {
-            switch (aCard.getValue()){
-                case ACE: aceCard += 1; break;
-                default : totalValue += aCard.getValue().getValue();
-            }
-        }
-        
-        //Simple for loop to specify when the Ace should have a value of 1 or 11
-        for (int i = 0; i < aceCard; i++) {
-            if (totalValue > 10) {                   
-                totalValue += 1;                                        //If the total value of the players hand is greater
-                                                                        //than 10, the value of the Ace is 1
-            } else {
-                totalValue += 11;                                       //Otherwise, it is 11
-            }
-        }
-        return totalValue;
-    }
-    
-    //Moves both the players' and dealers' hands back into the deck post-round
-    public void moveToDeck(Deck moveTo) {
-        int thisDeckSize = this.deckCards.size();
-        
-        //puts cards into the 'moveTo' deck
-        for (int i = 0; i < thisDeckSize; i++) {
-            moveTo.addCard(this.getCard(i));
-        }
-        
-        for (int i = 0; i < thisDeckSize; i++) {
-            this.burnCard(0);
-        }
     }
 }
