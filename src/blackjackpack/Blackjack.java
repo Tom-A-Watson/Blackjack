@@ -25,8 +25,8 @@ public class Blackjack
 		timeOfDay = printGreeting(time);
 
 		Deck deckOfCards = newDeck();                                      
-		Deck playerHand = new Deck();		//Creates the player's hand
-		Deck dealerHand = new Deck();       //Creates the dealer's hand
+		Hand playerHand = new Hand();		//Creates the player's hand
+		Hand dealerHand = new Hand();       //Creates the dealer's hand
 
 		boolean playerHasLeft = false; 		//Becomes true when the player leaves (game loop breaks) 
 		double playerBalance = 500.00;      //Player's default amount of money which can change
@@ -66,8 +66,8 @@ public class Blackjack
 
 				//Player hits
 				if (answer == PlayerInput.Answer.HIT) {
-					playerHand.draw(deckOfCards);
-					System.out.println("\n" + "You drew a " + playerHand.getCard(playerHand.sizeOfDeck()-1));
+					playerHand.drawFrom(deckOfCards);
+					System.out.println("\n" + "You drew a " + playerHand.getCard(playerHand.size()-1));
 
 					//Bust if they hit & their hand value is > 21
 					if (playerHand.cardValue() > 21) {
@@ -97,8 +97,8 @@ public class Blackjack
 
 			//The dealer will always draw another card until they reach a hand value of 17
 			while ((dealerHand.cardValue() < 17) && endRound == false) {
-				dealerHand.draw(deckOfCards);
-				System.out.println("Dealer drew: " + dealerHand.getCard(dealerHand.sizeOfDeck()
+				dealerHand.drawFrom(deckOfCards);
+				System.out.println("Dealer drew: " + dealerHand.getCard(dealerHand.size()
 						-1).toString() + "\n");
 			}
 
@@ -161,12 +161,12 @@ public class Blackjack
 	 * @param dealerHand the dealer to be dealt cards
 	 */
 	
-	private static void deal(Deck deckOfCards, Deck playerHand, Deck dealerHand) {
-		playerHand.draw(deckOfCards);
-		dealerHand.draw(deckOfCards);
+	private static void deal(Deck deckOfCards, Hand playerHand, Hand dealerHand) {
+		playerHand.drawFrom(deckOfCards);
+		dealerHand.drawFrom(deckOfCards);
 
-		playerHand.draw(deckOfCards);
-		dealerHand.draw(deckOfCards);
+		playerHand.drawFrom(deckOfCards);
+		dealerHand.drawFrom(deckOfCards);
 	}
 
 	/**
@@ -177,10 +177,9 @@ public class Blackjack
 	 * @param dealerHand
 	 * @return the player's answer to the question
 	 */
-	
-	private static int endOfRound(Scanner playerInput, Deck deckOfCards, Deck playerHand, Deck dealerHand) {
-		playerHand.moveToDeck(deckOfCards);
-		dealerHand.moveToDeck(deckOfCards);
+	private static int endOfRound(Scanner playerInput, Deck deckOfCards, Hand playerHand, Hand dealerHand) {
+		playerHand.returnCardsToDeck(deckOfCards);
+		dealerHand.returnCardsToDeck(deckOfCards);
 		System.out.println("End of round. Would you like to play another?");            
 		System.out.println("Yes[1] | No[2]");                                           
 		int nextRoundAnswer = playerInput.nextInt();
@@ -191,8 +190,7 @@ public class Blackjack
 	 * Displays all of the players cards and their hand value
 	 * @param playerHand the cards to be displayed
 	 */
-	
-	private static void showHand(Deck playerHand) {
+	private static void showHand(Hand playerHand) {
 		System.out.println("\n" + "Your hand:");
 		System.out.println(playerHand.toString());
 		System.out.println("Your total hand value is: " + playerHand.cardValue());
@@ -204,10 +202,7 @@ public class Blackjack
 	 */
 	
 	private static Deck newDeck() {
-		Deck deckOfCards = new Deck();                                 
-		deckOfCards.createFullDeck();                                   
-		deckOfCards.shuffleDeck();
-		return deckOfCards;
+		return new Deck();
 	}
 
 	/**
@@ -216,7 +211,7 @@ public class Blackjack
 	 * @return the compliment for the given player hand
 	 */
 	
-	private static String complimentFor(Deck playerHand) {
+	private static String complimentFor(Hand playerHand) {
 		var compliment = "";
 		if (playerHand.cardValue() == 21) {                         
 			compliment = " Spectacular!!";
