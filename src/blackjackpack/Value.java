@@ -2,10 +2,8 @@ package blackjackpack;
 
 
 /**
- * Enumeration class Value - write a description of the enum class here
- *
- * @author (your name here)
- * @version (version number or date here)
+ * Enumeration class Value - This is where the values of the cards are defined and
+ * initialised. 
  */
 public enum Value
 {

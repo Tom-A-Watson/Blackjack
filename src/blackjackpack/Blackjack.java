@@ -10,6 +10,8 @@ import java.util.Date;
 
 public class Blackjack
 {
+	private static final double INITIAL_BALANCE = 500.00;
+
 	/**
 	 * This is the entry point to the Blackjack game.
 	 * @param args The arguments to the program
@@ -22,16 +24,16 @@ public class Blackjack
 		var time = today.getHours();                                    
 		var timeOfDay = "";                                            
 		
-		timeOfDay = printGreeting(time);
+		timeOfDay = dealerGreeting(time);
 
 		Deck deckOfCards = newDeck();                                      
 		Hand playerHand = new Hand();		//Creates the player's hand
 		Hand dealerHand = new Hand();       //Creates the dealer's hand
 
-		boolean playerHasLeft = false; 		//Becomes true when the player leaves (game loop breaks) 
-		double playerBalance = 500.00;      //Player's default amount of money which can change
-		double playerBet = 0;               //Player's bet which is defined as 0 until they make                                                                 
-											//a bet                                                               
+		boolean playerHasLeft = false;		//Becomes true when the player leaves (game loop breaks) 				
+		double playerBalance = INITIAL_BALANCE;      //Player's default amount of money which can change
+		double playerBet = 0;               //Player's bet which is 0 until they make a bet                                                                
+								                                                              
 		//Game loop
 		//Player can continue playing until their balance drops to 0, or if they choose to leave
 		while (playerBalance > 0 && !playerHasLeft) {
@@ -50,7 +52,7 @@ public class Blackjack
 
 			//Dealing commences
 			//Player is dealt 1 card, then the dealer is also dealt 1, this is repeated once.
-			deal(deckOfCards, playerHand, dealerHand);
+			dealing(deckOfCards, playerHand, dealerHand);
 
 			//Displays player's hand and hand value
 			while (true) {
@@ -89,8 +91,7 @@ public class Blackjack
 
 			//If the dealer's hand is better than the player's, they win
 			if (dealerHand.cardValue() > playerHand.cardValue() && endRound == false) {
-				System.out.println("Dealer wins with a hand of " + dealerHand.cardValue() + " to " 
-						+ playerHand.cardValue() + ". Better luck next time!");
+				System.out.println("Dealer wins with a hand of " + dealerHand.cardValue() + " to " + playerHand.cardValue() + ". Better luck next time!");
 				playerBalance -= playerBet;
 				endRound = true;
 			}
@@ -98,8 +99,7 @@ public class Blackjack
 			//The dealer will always draw another card until they reach a hand value of 17
 			while ((dealerHand.cardValue() < 17) && endRound == false) {
 				dealerHand.drawFrom(deckOfCards);
-				System.out.println("Dealer drew: " + dealerHand.getCard(dealerHand.size()
-						-1).toString() + "\n");
+				System.out.println("Dealer drew: " + dealerHand.getCard(dealerHand.size() -1).toString() + "\n");
 			}
 
 			//Displays dealer's total hand value
@@ -142,8 +142,8 @@ public class Blackjack
 			} else if (nextRoundAnswer == 2) {
 				System.out.println("\n" + "Fair enough, have a good rest of your " + timeOfDay + "!");
 				playerInput.close();
-				playerHasLeft = true;				//if the answer is 2, close the
-			}                                       //scanner (end the game)
+				playerHasLeft = true;				//if the answer is 2, close the scanner (end the game)
+			}                                       
 		}
 
 		//End-of-game statements relative to circumstance:
@@ -151,7 +151,13 @@ public class Blackjack
 			if (playerBalance == 0){System.out.println("Game over. You are sadly out of money :(");}
 			else if (playerBet > playerBalance){System.out.println("Game over. Security escorted you"
 					+ " out of the building");}
-		}   
+		}
+		
+		if (playerBalance > INITIAL_BALANCE) {
+			System.out.println("Good game, enjoy your winnings!");
+		} else if (playerBalance < INITIAL_BALANCE) {
+			System.out.println("Better luck next time. Come again soon!");
+		}
 	}
 
 	/**
@@ -160,21 +166,20 @@ public class Blackjack
 	 * @param playerHand the player to be dealt cards
 	 * @param dealerHand the dealer to be dealt cards
 	 */
-	
-	private static void deal(Deck deckOfCards, Hand playerHand, Hand dealerHand) {
+	private static void dealing(Deck deckOfCards, Hand playerHand, Hand dealerHand) {
 		playerHand.drawFrom(deckOfCards);
 		dealerHand.drawFrom(deckOfCards);
-
+		
 		playerHand.drawFrom(deckOfCards);
 		dealerHand.drawFrom(deckOfCards);
 	}
 
 	/**
-	 * Dealer takes cards back, and asks player if they would like to play another round
-	 * @param playerInput
-	 * @param deckOfCards
-	 * @param playerHand
-	 * @param dealerHand
+	 * Dealer takes cards back and asks player if they would like to play another round
+	 * @param playerInput the player's answer to the question
+	 * @param deckOfCards the playing deck
+	 * @param playerHand cards are returned to the deck
+	 * @param dealerHand cards are returned to the deck
 	 * @return the player's answer to the question
 	 */
 	private static int endOfRound(Scanner playerInput, Deck deckOfCards, Hand playerHand, Hand dealerHand) {
@@ -200,17 +205,15 @@ public class Blackjack
 	 * Creates a full deck of cards, and shuffles it
 	 * @return the newly created deck of cards
 	 */
-	
 	private static Deck newDeck() {
 		return new Deck();
 	}
 
 	/**
-	 * Returns a compliment for a players hand
+	 * Returns a compliment for a players winning hand
 	 * @param playerHand the cards in the player's hand
 	 * @return the compliment for the given player hand
 	 */
-	
 	private static String complimentFor(Hand playerHand) {
 		var compliment = "";
 		if (playerHand.cardValue() == 21) {                         
@@ -225,7 +228,10 @@ public class Blackjack
 		return compliment;
 	}
 
-	private static String printGreeting(int time) {
+	/**
+	 * 
+	 */
+	private static String dealerGreeting(int time) {
 		String timeOfDay;
 		//Gives the dealer an appropriate greeting depending on the time of day that the game is played
 		if (time < 12) {    //12pm (noon)

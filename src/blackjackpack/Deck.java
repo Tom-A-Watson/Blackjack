@@ -10,16 +10,18 @@ import java.util.Random;
  */
 public class Deck
 {
-    //The instance variable is an ArrayList of multiple cards, thus the name 'multipleCards' 
+    //The instance variable is an ArrayList of multiple cards 
     private ArrayList<Card> deckCards;
     
-    //Constructor method
+    /**
+     * Constructor method that creates a full deck of cards
+     */
     public Deck() {
         this.deckCards = new ArrayList<Card>(); 
         for (Suit cardSuit : Suit.values()) {
             for (Value cardValue : Value.values()) {                    //Adds a new card
-                this.deckCards.add(new Card(cardSuit, cardValue));  	//Every new card that is added contains a value and
-                                                                        //a suit
+                this.deckCards.add(new Card(cardSuit, cardValue));  	
+                                                                        //for every suit that there is (4 * 13)
             }
         }
         shuffle();
@@ -34,16 +36,17 @@ public class Deck
         int randomCardIndex = 0;                                        
         int noOfCards = this.deckCards.size();                      
                                                                         
-        //Sequence for generating a random number
+        //Sequence for generating a random number of cards to be removed
         for (int i = 0; i < noOfCards; i++) {
             randomCardIndex = random.nextInt((this.deckCards.size()-1 - 0) + 1) + 0;
-            tempDeck.add(this.deckCards.get(randomCardIndex));      
-            this.deckCards.remove(randomCardIndex);                 
+            tempDeck.add(this.deckCards.remove(randomCardIndex));               
         }
         this.deckCards = tempDeck;
     }
     
-    //Loop that returns a list of all cards in the players hand on new lines
+    /**
+     * Returns a list of all cards in the players hand to strings
+     */
     public String toString() {
         String cardsInPlayerDeck = "";
         for (Card aCard : this.deckCards) {
@@ -52,12 +55,18 @@ public class Deck
         return cardsInPlayerDeck;
     }
     
-    //Removes 1 card from the shuffled deck before dealing
-    public void burnCard(int i) {
+    /**
+     * Removes an index of cards from the original deck
+     * @param i - index of cards to be removed
+     */
+    public void removeCard(int i) {
         this.deckCards.remove(i);
     }
     
-    
+    /**
+     * Adds a card to the original deck
+     * @param addCard
+     */
     public void addCard(Card addCard) {
         this.deckCards.add(addCard);
     }
