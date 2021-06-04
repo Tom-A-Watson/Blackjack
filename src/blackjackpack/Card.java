@@ -2,8 +2,9 @@ package blackjackpack;
 
 
 /**
- This is the Card class, which defines the attributes, and returned-value that
- a card possesses.
+ * This is the Card class, which defines the attributes, and returned-value that
+ * a card possesses.
+ * @author Tom Watson
  */
 public class Card
 {

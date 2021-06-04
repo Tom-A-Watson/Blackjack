@@ -65,7 +65,7 @@ public class Hand {
 	
 	/**
 	 * Moves both the players' and dealers' hands back into the deck post-round
-	 * @param deck
+	 * @param deck 
 	 */
     public void returnCardsToDeck(Deck deck) {
     	while ( !cards.isEmpty() ) {
@@ -75,7 +75,7 @@ public class Hand {
     
     /**
      * Loop that returns a list of all cards in the players hand on new lines
-     * @return a useful description of the cards in a player's hand.
+     * @return the cards in a given hand.
      */
     public String toString() {
         String cardsInPlayerDeck = "";

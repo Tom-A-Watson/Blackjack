@@ -45,27 +45,8 @@ public class Deck
     }
     
     /**
-     * Returns a list of all cards in the players hand to strings
-     */
-    public String toString() {
-        String cardsInPlayerDeck = "";
-        for (Card aCard : this.deckCards) {
-            cardsInPlayerDeck += aCard.toString() + "\n";
-        }
-        return cardsInPlayerDeck;
-    }
-    
-    /**
-     * Removes an index of cards from the original deck
-     * @param i - index of cards to be removed
-     */
-    public void removeCard(int i) {
-        this.deckCards.remove(i);
-    }
-    
-    /**
      * Adds a card to the original deck
-     * @param addCard
+     * @param addCard the card to be added
      */
     public void addCard(Card addCard) {
         this.deckCards.add(addCard);
