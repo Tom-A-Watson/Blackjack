@@ -1,2 +1,3 @@
-# Blacljack
-This is the first-ever terminal game that I created in my first year of university.
+# Blackjack
+A very simplistic terminal-based Java Blackjack game with a few cool added features :) 
+This was for an assignment for one of my first year modules: 'Introduction to Programming'
