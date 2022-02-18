@@ -1,5 +1,5 @@
 # Simple Application - Blackjack Game
-As stated briefly in the description, this is a very simple text input & output Blackjack game that I created in **Semester 2** of my first year of university. It was for the '**Simple Application**' assignment for the module '**Introduction to Programming**'. As well as being a fully-working Blackjack game, it also has some cool custom features/ functionality that I added myself. If you wish to download or clone this repository, please read the 'Game Instructions' section of the documentation below. 
+As stated briefly in the description, this is a very simple text input & output Blackjack game that I created in **Semester 2** of my first year of university. It was for the '**Simple Application**' assignment for the module '**Introduction to Programming**'. As well as being a fully-working Blackjack game, it also has some cool custom features/ functionality that I added myself. If you wish to download or clone this repository, please read the <a href="gameInstructions">Game Instructions</a> section of the documentation below. 
 
 <p align="center">
   <img src="images/blackjackimg.jpg" alt="Blackjack Image" width="400">
@@ -10,15 +10,15 @@ As stated briefly in the description, this is a very simple text input & output 
 ### Project and My Aims
 The programming project that I chose for the Simple Application assessment was the freestyle game, and in this case, a text-input and output version of the card game, Blackjack. I chose this particular game for the project because I felt that it was not overly complex, meanwhile being complex enough to show understanding of basic coding concepts to develop simple application. Nonetheless, I was still able to add some cool features to meet the criteria, and also make for a better user experience.
 
-### Game Instructions
+### <div id="gameInstructions">Game Instructions</div>
 
   **Running the code from BlueJ**
   
-  Navigate to the class-view window, which should have all classes laid out visually for the user to see. Right click the ‘Blackjack’ class (as this contains the main method   for the code to run) and click ‘Compile’. Once compiled, right click a second time and click ‘void main (String[] args)’. The game should open on a separate window.
+Navigate to the class-view window, which should have all classes laid out visually for the user to see. Right click the ‘Blackjack’ class (as this contains the main method   for the code to run) and click ‘Compile’. Once compiled, right click a second time and click ‘void main (String[] args)’. The game should open on a separate window.
 
   **Running the code from Eclipse**
 
-  Navigate to the Package Explorer on the left of the screen. Expand ‘src’  and ‘blackjackpack’ to reveal the classes, and right click the Blackjack.java class. Select ‘Run     as’, then from its drop-down menu, click ‘1 Java Application’ and the game should commence in the runtime environment at the bottom of the screen. Alternatively, there is a   ‘Run’ button located on the top of the screen, under the ‘Search’ tab, which is more convenient for simpler programs.
+Navigate to the Package Explorer on the left of the screen. Expand ‘src’  and ‘blackjackpack’ to reveal the classes, and right click the Blackjack.java class. Select ‘Run     as’, then from its drop-down menu, click ‘1 Java Application’ and the game should commence in the runtime environment at the bottom of the screen. Alternatively, there is a   ‘Run’ button located on the top of the screen, under the ‘Search’ tab, which is more convenient for simpler programs.
 
 1. Now that the game is up and running, the dealer will give an appropriate greeting depending on the time of day, then will inform you that you have £500 to play with. The dealer will then ask much money you would like to bet. The starting bet amount can be anything from 0 to 500 pounds. Once you have decided how much you are going to bet, type it into the terminal and press Enter.
 
@@ -33,16 +33,18 @@ The programming project that I chose for the Simple Application assessment was t
 ### How the Code/ Main Classes Work
 
 #### Enumeration Classes
-Since this is a card game, creating the necessary classes for the game was not too difficult. I knew that I needed a card object, a deck object (an ArrayList of cards) and a class to put the Blackjack game-logic in. In this case, the only relevant information for a card is its suit and value (value being slightly more important). The easiest way to create the sets of suits and values was using two enumeration classes, ‘Suit’ and ‘Value’. Because suits don’t matter too much in Blackjack specifically, I left the enum as a simple list of the suits. However, for Value, I decided that initialising and returning the values as integers, in the enum class, would be more far more concise than writing a switch statement with 13 different cases in the Deck class.  
+Since this is a card game, creating the necessary classes for the game was not too difficult. I knew that I needed a card object, a deck object (an ArrayList of cards) and a class to put the Blackjack game-logic in. In this case, the only relevant information for a card is its suit and value (value being slightly more important). The easiest way to create the sets of suits and values was using two enumeration classes, ‘Suit’ and ‘Value’. Because suits don’t matter too much in Blackjack specifically, I left the enum as a simple list of the suits. However, for Value, I decided that initialising and returning the values as integers, in the enum class, would be more far more concise than writing a switch statement with 13 different cases in the **Deck** class.  
 
 #### Card Class
 This class defines one singular card, meaning it must use the enums, Suit and Value. I started by creating a new private Suit (enum) called ‘suit’, and a private Value called ‘value’. The identifiers must be lowercase, otherwise Java would have issues differentiating them from the enum class, when used in statements. Next, I had to create three methods for the cards. 
+
 The first one was the card constructor, which defines that every card created must have a suit, and a value. The second was the ‘toString’ method, which textually represents the card object by returning the value, e.g., ‘KING’, and the suit, e.g., ‘HEARTS’ to a string. I stated that the word ‘of’ should always be in the middle, so that when a card is returned, it would say e.g., ‘KING of HEARTS’. This method is also an example of overriding, as it’s using the Card class’s functionality to convert cards to strings. Lastly, the final method is ‘getValue’. The purpose of which, is to return the numerical value of a card, so that hand values can be calculated, and recalculated when the player and/or dealer hits.
 
 #### Deck Class
-
 The deck class is an ArrayList of card objects. The reason that it had to be an ArrayList and not an array is because the length of ArrayLists can be changed, whereas a normal array must have a fixed length, which would ultimately make my chosen method of shuffling impossible. I created the deck by making a new private ArrayList of cards called ‘deckCards’, which is the instance variable of the class. 
-I then had to create a constructor method so that a new deck of cards can be created at the start of each game. The way that I defined the number of cards that should be in a deck was via iteration using for loops. The for loops state that for every suit, there should be a full set of values (4 x 13).  Once the 52 cards were created, I was then able to add them to deckCards. The final part of the deck constructor was including a reference to the shuffle method, outside of both for loops. 
+I then had to create a constructor method so that a new deck of cards can be created at the start of each game. The way that I defined the number of cards that should be in a deck was via iteration using for loops. The for loops state that for every suit, there should be a full set of values (4 x 13).  Once the 52 cards were created, I was then able to add them to deckCards. 
+
+The final part of the deck constructor was including a reference to the shuffle method, outside of both for loops. 
 The shuffle method consists of a separate, temporary deck which is also an ArrayList of cards. I used the Java utility: ‘Random’ to generate a random number of cards (randomCardIndex) to be removed from the original deck, which can be any number from 0 to 51. This number of cards is then to be added to the temporary one, thus changing the ordering. Once this has occurred, the temporary deck then becomes equal to the original deck, meaning the cards have been shuffled successfully. There are also various one-line methods for removing, adding and drawing cards from the deck. As in real life, operations on the deck are to shuffle, draw a card, and put cards back into the deck.
 
 #### Hand Class
