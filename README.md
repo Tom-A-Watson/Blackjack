@@ -5,6 +5,10 @@ As stated briefly in the description, this is a very simple text input & output 
   <img src="images/blackjackimg.jpg" alt="Blackjack Image" width="400">
 </p>
   
+<p align="center"><b>╭══• ೋ•✧๑♡๑✧•ೋ •══╮</b></p>
+<p align="center">Score for this assignment: <b>60%</b></p>
+<p align="center"><b>╰══• ೋ•✧๑♡๑✧•ೋ •══╯</b></p>  
+  
 ## Documentation
 
 ### Project and My Aims
